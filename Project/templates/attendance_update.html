@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Attendance Record{% endblock %}
+
+{% block content %}
+    <h1>Edit Attendance Record</h1>
+    
+    <form method="POST" action="{{ url_for('post_attendance_update', id=attendance.id) }}">
+        <div class="mb-3">
+            <label for="employee_id" class="form-label">Employee</label>
+            <select class="form-select" id="employee_id" name="employee_id" required>
+                {% for employee in employees %}
+                    <option value="{{ employee.id }}" {% if employee.id == attendance.employee_id %}selected{% endif %}>{{ employee.first_name }} {{ employee.last_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="date" class="form-label">Date</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ attendance.date }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Present" {% if attendance.status == 'Present' %}selected{% endif %}>Present</option>
+                <option value="Absent" {% if attendance.status == 'Absent' %}selected{% endif %}>Absent</option>
+                <option value="Late" {% if attendance.status == 'Late' %}selected{% endif %}>Late</option>
+                <option value="Half Day" {% if attendance.status == 'Half Day' %}selected{% endif %}>Half Day</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="check_in" class="form-label">Check In</label>
+            <input type="time" class="form-control" id="check_in" name="check_in" value="{{ attendance.check_in }}">
+        </div>
+        <div class="mb-3">
+            <label for="check_out" class="form-label">Check Out</label>
+            <input type="time" class="form-control" id="check_out" name="check_out" value="{{ attendance.check_out }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('get_attendance_list') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

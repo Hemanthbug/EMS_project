@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Leave Records{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Leave Records</h1>
+        <a href="{{ url_for('get_leave_create') }}" class="btn btn-primary">Add Leave</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave in leaves %}
+                <tr>
+                    <td>{{ leave.id }}</td>
+                    <td>{{ leave.employee_name }}</td>
+                    <td>{{ leave.start_date }}</td>
+                    <td>{{ leave.end_date }}</td>
+                    <td>{{ leave.type }}</td>
+                    <td>{{ leave.status }}</td>
+                    <td>
+                        <a href="{{ url_for('get_leave_update', id=leave.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ url_for('get_leave_delete', id=leave.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

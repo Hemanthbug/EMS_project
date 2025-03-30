@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Employee{% endblock %}
+
+{% block content %}
+    <h1>Add Employee</h1>
+    
+    <form method="POST" action="{{ url_for('post_employee_create') }}">
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+        </div>
+        <div class="mb-3">
+            <label for="department_id" class="form-label">Department</label>
+            <select class="form-select" id="department_id" name="department_id" required>
+                <option value="">Select Department</option>
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="position_id" class="form-label">Position</label>
+            <select class="form-select" id="position_id" name="position_id" required>
+                <option value="">Select Position</option>
+                {% for position in positions %}
+                    <option value="{{ position.id }}">{{ position.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="hire_date" class="form-label">Hire Date</label>
+            <input type="date" class="form-control" id="hire_date" name="hire_date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{ url_for('get_employee_list') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

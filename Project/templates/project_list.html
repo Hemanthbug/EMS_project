@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Projects</h1>
+        <a href="{{ url_for('get_project_create') }}" class="btn btn-primary">Assign Project</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Team ID</th>
+                <th>Project Name</th>
+                <th>Role</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+                <tr>
+                    <td>{{ project.employee_name }}</td>
+                    <td>{{ project.team_id }}</td>
+                    <td>{{ project.project_name }}</td>
+                    <td>{{ project.role }}</td>
+                    <td>{{ project.start_date }}</td>
+                    <td>{{ project.end_date }}</td>
+                    <td>
+                        <a href="{{ url_for('get_project_update', employee_id=project.employee_id, team_id=project.team_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ url_for('get_project_delete', employee_id=project.employee_id, team_id=project.team_id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Leave Record{% endblock %}
+
+{% block content %}
+    <h1>Edit Leave Record</h1>
+    
+    <form method="POST" action="{{ url_for('post_leave_update', id=leave.id) }}">
+        <div class="mb-3">
+            <label for="employee_id" class="form-label">Employee</label>
+            <select class="form-select" id="employee_id" name="employee_id" required>
+                {% for employee in employees %}
+                    <option value="{{ employee.id }}" {% if employee.id == leave.employee_id %}selected{% endif %}>{{ employee.first_name }} {{ employee.last_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" value="{{ leave.start_date }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="end_date" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" value="{{ leave.end_date }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="type" class="form-label">Leave Type</label>
+            <select class="form-select" id="type" name="type" required>
+                <option value="Vacation" {% if leave.type == 'Vacation' %}selected{% endif %}>Vacation</option>
+                <option value="Sick" {% if leave.type == 'Sick' %}selected{% endif %}>Sick</option>
+                <option value="Personal" {% if leave.type == 'Personal' %}selected{% endif %}>Personal</option>
+                <option value="Maternity/Paternity" {% if leave.type == 'Maternity/Paternity' %}selected{% endif %}>Maternity/Paternity</option>
+                <option value="Bereavement" {% if leave.type == 'Bereavement' %}selected{% endif %}>Bereavement</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Pending" {% if leave.status == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Approved" {% if leave.status == 'Approved' %}selected{% endif %}>Approved</option>
+                <option value="Rejected" {% if leave.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="reason" class="form-label">Reason</label>
+            <textarea class="form-control" id="reason" name="reason" rows="3">{{ leave.reason }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('get_leave_list') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}Assign Project{% endblock %}
+
+{% block content %}
+    <h1>Assign Project</h1>
+    
+    <form method="POST" action="{{ url_for('post_project_create') }}">
+        <div class="mb-3">
+            <label for="employee_id" class="form-label">Employee</label>
+            <select class="form-select" id="employee_id" name="employee_id" required>
+                <option value="">Select Employee</option>
+                {% for employee in employees %}
+                    <option value="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="team_id" class="form-label">Team ID</label>
+            <input type="text" class="form-control" id="team_id" name="team_id" required>
+        </div>
+        <div class="mb-3">
+            <label for="project_name" class="form-label">Project Name</label>
+            <input type="text" class="form-control" id="project_name" name="project_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <input type="text" class="form-control" id="role" name="role" required>
+        </div>
+        <div class="mb-3">
+            <label for="start_date" class="form-label">Start Date</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="end_date" class="form-label">End Date</label>
+            <input type="date" class="form-control" id="end_date" name="end_date">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{ url_for('get_project_list') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

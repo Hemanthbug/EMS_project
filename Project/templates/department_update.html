@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}Edit Department{% endblock %}
+
+{% block content %}
+    <h1>Edit Department</h1>
+    
+    <form method="POST" action="{{ url_for('post_department_update', id=department.id) }}">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ department.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3">{{ department.description }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('get_department_list') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

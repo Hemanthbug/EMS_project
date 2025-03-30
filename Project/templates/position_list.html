@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}Positions{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Positions</h1>
+        <a href="{{ url_for('get_position_create') }}" class="btn btn-primary">Add Position</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for position in positions %}
+                <tr>
+                    <td>{{ position.id }}</td>
+                    <td>{{ position.title }}</td>
+                    <td>{{ position.department_name }}</td>
+                    <td>{{ position.salary }}</td>
+                    <td>
+                        <a href="{{ url_for('get_position_update', id=position.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ url_for('get_position_delete', id=position.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

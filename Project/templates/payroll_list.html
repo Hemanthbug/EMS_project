@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}Payrolls{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Payroll Records</h1>
+        <a href="{{ url_for('get_payroll_create') }}" class="btn btn-primary">Add Payroll</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Employee</th>
+                <th>Pay Period</th>
+                <th>Basic Salary</th>
+                <th>Allowances</th>
+                <th>Deductions</th>
+                <th>Net Salary</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payroll in payrolls %}
+                <tr>
+                    <td>{{ payroll.id }}</td>
+                    <td>{{ payroll.employee_name }}</td>
+                    <td>{{ payroll.pay_period }}</td>
+                    <td>{{ payroll.basic_salary }}</td>
+                    <td>{{ payroll.allowances }}</td>
+                    <td>{{ payroll.deductions }}</td>
+                    <td>{{ payroll.net_salary }}</td>
+                    <td>
+                        <a href="{{ url_for('get_payroll_update', id=payroll.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{{ url_for('get_payroll_delete', id=payroll.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
